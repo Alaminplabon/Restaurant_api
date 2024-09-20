@@ -1,0 +1,10 @@
+<%= form_with(model: category, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :name, "Category Name" %>
+    <%= form.text_field :name, placeholder: "Enter category name" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Create Category" %>
+  </div>
+<% end %>

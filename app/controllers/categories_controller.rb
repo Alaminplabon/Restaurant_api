@@ -1,5 +1,10 @@
 class CategoriesController < ApplicationController
-    skip_before_action :authorize_request, only: :index
+    # skip_before_action :authorize_request, only: :new
+
+
+    def new
+      @category = Category.new
+    end
   
     def index
       categories = Category.all
@@ -12,13 +17,19 @@ class CategoriesController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render json: { error: 'Category not found' }, status: :not_found
     end
-    
+
     def create
       @category = Category.new(category_params)
       if @category.save
-        render json: @category, status: :created
+        respond_to do |format|
+          format.html { redirect_to admin_pages_path, notice: 'Category was successfully created.' }
+          format.json { render json: @category, status: :created }
+        end
       else
-        render json: @category.errors, status: :unprocessable_entity
+        respond_to do |format|
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @category.errors, status: :unprocessable_entity }
+        end
       end
     end
   

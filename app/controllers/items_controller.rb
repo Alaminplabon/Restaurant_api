@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-    before_action :authorize_request, except: [:index, :show]
-    before_action :set_subcategory, only: [:create, :index]
+    before_action :authorize_request, except: [:new, :show]
+    before_action :set_subcategory, only: [:create, :new]
 
     def index
       if @subcategory.nil?

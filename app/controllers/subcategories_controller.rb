@@ -1,8 +1,13 @@
 class SubcategoriesController < ApplicationController
-  before_action :authorize_request, except: [:index, :show]
-  before_action :set_category, only: [:create, :index]
+  # before_action :authorize_request, except: [:new, :show]
+  before_action :set_category, only: [:create]
   before_action :set_subcategory, only: [:show, :update, :destroy]
 
+
+  def new
+    @subcategory = Subcategory.new
+    @categories = Category.all
+  end
   def index
     if params[:category_id]
       subcategories = @category.subcategories

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Restaurant</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= yield :head %>
+
+  <%#= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%#= javascript_importmap_tags %>
+</head>
+
+<body>
+<div>
+  <%= link_to "Restaurant", root_path %>
+</div>
+<div>
+  <% if user_mvc_signed_in? %>
+    <div>
+      Hello, <%= current_user_mvc.email %>
+    </div>
+    <div>
+      <%= button_to "Log Out", destroy_user_mvc_session_path, method: :delete %>
+    </div>
+  <% else %>
+    <div>
+      <%= button_to "Log In", new_user_mvc_session_url, method: "get" %>
+    </div>
+    <div>
+      <%= button_to "Sign Up", new_user_mvc_registration_url, method: "get" %>
+    </div>
+  <% end %>
+</div>
+
+<div>
+  <div>
+    Home
+  </div>
+  <div>
+    <%= link_to "Admin", admin_pages_path %>
+  </div>
+</div>
+
+<% if alert || notice %>
+  <div>
+    <% if notice %>
+      <div>
+        <%= notice %>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div>
+        <%= alert %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= yield %>
+</body>
+</html>
